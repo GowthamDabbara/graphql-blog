@@ -1,5 +1,5 @@
 export interface Post {
-	id: number;
+	id: string; // Keep as string (GraphQL returns ID as string)
 	title: string;
 	slug: string;
 	content: string;
@@ -12,7 +12,7 @@ export interface Post {
 }
 
 export interface User {
-	id: number;
+	id: string; // Keep as string
 	email: string;
 	name: string;
 	bio?: string;
@@ -21,7 +21,7 @@ export interface User {
 }
 
 export interface Comment {
-	id: number;
+	id: string; // Keep as string
 	content: string;
 	createdAt: string;
 	updatedAt: string;
