@@ -7,19 +7,13 @@ export const GET_POSTS = gql`
 			title
 			slug
 			excerpt
-			published
 			createdAt
 			author {
 				id
 				name
-				bio
 			}
 			comments {
 				id
-				content
-				author {
-					name
-				}
 			}
 		}
 	}
@@ -30,19 +24,37 @@ export const GET_POST_BY_SLUG = gql`
 		postBySlug(slug: $slug) {
 			id
 			title
+			slug
 			content
 			excerpt
-			published
+			createdAt
 			author {
+				id
 				name
 				bio
 			}
 			comments {
 				id
 				content
+				createdAt
 				author {
+					id
 					name
 				}
+			}
+		}
+	}
+`;
+
+export const GET_POST_COMMENTS = gql`
+	query GetPostComments($postId: ID!) {
+		postComments(postId: $postId) {
+			id
+			content
+			createdAt
+			author {
+				id
+				name
 			}
 		}
 	}

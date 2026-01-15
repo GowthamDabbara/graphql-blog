@@ -6,6 +6,21 @@ interface PostCardProps {
 }
 
 export function PostCard({ post }: PostCardProps) {
+	// Format date safely
+	const formatDate = (dateString: string) => {
+		try {
+			const date = new Date(dateString);
+			if (isNaN(date.getTime())) return "Recently";
+			return date.toLocaleDateString("en-US", {
+				year: "numeric",
+				month: "short",
+				day: "numeric",
+			});
+		} catch {
+			return "Recently";
+		}
+	};
+
 	return (
 		<article className="group bg-slate-800/30 backdrop-blur-xl rounded-2xl border border-slate-700 hover:border-slate-600 p-6 transition-all duration-300 hover:shadow-2xl hover:shadow-sky-500/10 animate-fadeIn">
 			{/* Title */}
@@ -32,13 +47,7 @@ export function PostCard({ post }: PostCardProps) {
 				</div>
 				<div>
 					<p className="text-slate-300 font-medium">{post.author.name}</p>
-					<p className="text-slate-500 text-sm">
-						{new Date(post.createdAt).toLocaleDateString("en-US", {
-							year: "numeric",
-							month: "short",
-							day: "numeric",
-						})}
-					</p>
+					<p className="text-slate-500 text-sm">{formatDate(post.createdAt)}</p>
 				</div>
 			</div>
 

@@ -1,60 +1,43 @@
 import { useState, type FormEvent } from "react";
 import { useMutation } from "@apollo/client/react";
 import { CREATE_COMMENT } from "../graphql/mutations";
-import { GET_POST_BY_SLUG } from "../graphql/queries";
 
 interface CommentFormProps {
-	postId: number; // ✅ Keep as number
+	postId: number;
 	postSlug: string;
+	onCommentAdded: () => void;
 }
 
-export function CommentForm({ postId, postSlug }: CommentFormProps) {
+export function CommentForm({
+	postId,
+	postSlug,
+	onCommentAdded,
+}: CommentFormProps) {
 	const [content, setContent] = useState("");
-	const [loading, setLoading] = useState(false);
-
-	const [createComment] = useMutation(CREATE_COMMENT, {
-		refetchQueries: [
-			{ query: GET_POST_BY_SLUG, variables: { slug: postSlug } },
-		],
-	});
+	const [createComment, { loading }] = useMutation(CREATE_COMMENT);
 
 	const handleSubmit = async (e: FormEvent) => {
 		e.preventDefault();
 
 		if (!content.trim()) {
-			alert("Please enter a comment");
 			return;
 		}
 
-		setLoading(true);
-
 		try {
-			console.log("Submitting comment with:", {
-				content: content.trim(),
-				postId: postId, // ✅ Already a number, no conversion needed
-				authorId: 2,
-			});
-
-			const result = await createComment({
+			await createComment({
 				variables: {
 					input: {
 						content: content.trim(),
-						postId: postId, // ✅ Send as number
+						postId: postId,
 						authorId: 2,
 					},
 				},
 			});
 
-			console.log("Success!", result);
 			setContent("");
-			alert("Comment added successfully!");
+			onCommentAdded(); // Refresh the page data
 		} catch (err: any) {
-			console.error("Full error:", err);
-			console.error("GraphQL errors:", err.graphQLErrors);
-			console.error("Network error:", err.networkError);
-			alert("Failed to add comment. Check console.");
-		} finally {
-			setLoading(false);
+			console.error("❌ Error:", err);
 		}
 	};
 

@@ -29,7 +29,6 @@ export function CreatePost() {
 		e.preventDefault();
 
 		if (!title.trim() || !content.trim()) {
-			alert("Please fill in title and content");
 			return;
 		}
 
@@ -60,11 +59,9 @@ export function CreatePost() {
 			});
 
 			console.log("Post created!", result);
-			alert("Post created successfully!");
 			navigate("/");
 		} catch (err: any) {
 			console.error("Error creating post:", err);
-			alert("Failed to create post: " + err.message);
 		} finally {
 			setLoading(false);
 		}

@@ -30,3 +30,32 @@ export const CREATE_POST = gql`
 		}
 	}
 `;
+
+export const DELETE_POST = gql`
+	mutation DeletePost($id: ID!) {
+		deletePost(id: $id)
+	}
+`;
+
+export const DELETE_COMMENT = gql`
+	mutation DeleteComment($id: ID!) {
+		deleteComment(id: $id)
+	}
+`;
+
+export const UPDATE_POST = gql`
+	mutation UpdatePost($id: ID!, $input: UpdatePostInput!) {
+		updatePost(id: $id, input: $input) {
+			id
+			title
+			slug
+			content
+			excerpt
+			createdAt
+			author {
+				id
+				name
+			}
+		}
+	}
+`;
