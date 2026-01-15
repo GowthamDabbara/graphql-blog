@@ -65,7 +65,7 @@ export const typeDefs = gql`
 		slug: String!
 		content: String!
 		excerpt: String
-		authorId: Int!
+		authorId: String!
 		published: Boolean
 	}
 
@@ -77,7 +77,7 @@ export const typeDefs = gql`
 
 	input CreateCommentInput {
 		content: String!
-		postId: Int!
-		authorId: Int!
+		postId: String!
+		authorId: String!
 	}
 `;

@@ -24,7 +24,7 @@ export const mutationResolvers = {
 					slug: string;
 					content: string;
 					excerpt?: string;
-					authorId: number;
+					authorId: string;
 					published?: boolean;
 				};
 			},
@@ -51,7 +51,7 @@ export const mutationResolvers = {
 			context: GraphQLContext
 		) => {
 			return context.prisma.post.update({
-				where: { id: parseInt(args.id) },
+				where: { id: args.id },
 				data: args.input,
 			});
 		},
@@ -62,7 +62,7 @@ export const mutationResolvers = {
 			context: GraphQLContext
 		) => {
 			await context.prisma.post.delete({
-				where: { id: parseInt(args.id) },
+				where: { id: args.id },
 			});
 			return true;
 		},
@@ -73,7 +73,7 @@ export const mutationResolvers = {
 			context: GraphQLContext
 		) => {
 			return context.prisma.post.update({
-				where: { id: parseInt(args.id) },
+				where: { id: args.id },
 				data: { published: args.published },
 			});
 		},
@@ -81,7 +81,7 @@ export const mutationResolvers = {
 		createComment: async (
 			_parent: any,
 			args: {
-				input: { content: string; postId: number; authorId: number };
+				input: { content: string; postId: string; authorId: string };
 			},
 			context: GraphQLContext
 		) => {
@@ -89,7 +89,7 @@ export const mutationResolvers = {
 				data: {
 					content: args.input.content,
 					postId: args.input.postId,
-					authorId: args.input.authorId,
+					userId: args.input.authorId,
 				},
 			});
 		},
@@ -100,7 +100,7 @@ export const mutationResolvers = {
 			context: GraphQLContext
 		) => {
 			await context.prisma.comment.delete({
-				where: { id: parseInt(args.id) },
+				where: { id: args.id },
 			});
 			return true;
 		},
