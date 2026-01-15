@@ -66,6 +66,7 @@ export const typeDefs = gql`
 		content: String!
 		excerpt: String
 		authorId: Int!
+		published: Boolean
 	}
 
 	input UpdatePostInput {

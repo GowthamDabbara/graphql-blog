@@ -25,6 +25,7 @@ export const mutationResolvers = {
 					content: string;
 					excerpt?: string;
 					authorId: number;
+					published?: boolean;
 				};
 			},
 			context: GraphQLContext
@@ -36,6 +37,7 @@ export const mutationResolvers = {
 					content: args.input.content,
 					excerpt: args.input.excerpt,
 					authorId: args.input.authorId,
+					published: args.input.published ?? true,
 				},
 			});
 		},
