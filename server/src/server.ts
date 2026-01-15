@@ -1,4 +1,4 @@
-import express, { Express } from "express";
+import express, { Express, Request, Response } from "express";
 import { ApolloServer } from "apollo-server-express";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -29,11 +29,11 @@ async function startServer() {
 
 	server.applyMiddleware({ app: app as any });
 
-	app.get("/health", (_req, res) => {
+	app.get("/health", (_req: Request, res: Response) => {
 		res.json({ status: "Server is running! 🚀" });
 	});
 
-	app.get("/", (_req, res) => {
+	app.get("/", (_req: Request, res: Response) => {
 		res.json({
 			message: "GraphQL Blog API",
 			graphql: `http://localhost:${PORT}${server.graphqlPath}`,
