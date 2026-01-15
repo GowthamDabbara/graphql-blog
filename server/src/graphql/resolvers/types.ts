@@ -35,7 +35,7 @@ export const typeResolvers = {
 		},
 		author: async (parent: any, _args: any, context: GraphQLContext) => {
 			return context.prisma.user.findUnique({
-				where: { id: parent.userId }, // ← Change this from authorId
+				where: { id: parent.userId },
 			});
 		},
 	},
