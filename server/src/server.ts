@@ -18,6 +18,8 @@ async function startServer() {
 		context: () => ({
 			prisma,
 		}),
+		introspection: true, // Allow GraphQL introspection
+		csrfPrevention: false, // Disable CSRF for demo
 	});
 
 	const app: Express = express();
