@@ -6,15 +6,10 @@ import { ConfirmDialog } from "../../../components/ConfirmDialog";
 
 interface CommentCardProps {
 	comment: Comment;
-	postSlug: string;
 	onCommentDeleted: () => void;
 }
 
-export function CommentCard({
-	comment,
-	postSlug,
-	onCommentDeleted,
-}: CommentCardProps) {
+export function CommentCard({ comment, onCommentDeleted }: CommentCardProps) {
 	const [showDialog, setShowDialog] = useState(false);
 	const [deleteComment, { loading }] = useMutation(DELETE_COMMENT);
 

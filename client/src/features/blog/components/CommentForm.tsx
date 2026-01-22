@@ -4,15 +4,10 @@ import { CREATE_COMMENT } from "../graphql/mutations";
 
 interface CommentFormProps {
 	postId: number;
-	postSlug: string;
 	onCommentAdded: () => void;
 }
 
-export function CommentForm({
-	postId,
-	postSlug,
-	onCommentAdded,
-}: CommentFormProps) {
+export function CommentForm({ postId, onCommentAdded }: CommentFormProps) {
 	const [content, setContent] = useState("");
 	const [createComment, { loading }] = useMutation(CREATE_COMMENT);
 

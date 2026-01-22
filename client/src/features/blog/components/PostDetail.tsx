@@ -129,7 +129,6 @@ export function PostDetail() {
 
 						<CommentForm
 							postId={parseInt(post.id)}
-							postSlug={post.slug}
 							onCommentAdded={handleRefreshComments}
 						/>
 
@@ -151,7 +150,6 @@ export function PostDetail() {
 									<CommentCard
 										key={comment.id}
 										comment={comment}
-										postSlug={post.slug}
 										onCommentDeleted={handleRefreshComments}
 									/>
 								))}
