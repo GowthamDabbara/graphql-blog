@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { useMutation } from "@apollo/client/react";
 import { CREATE_COMMENT } from "../graphql/mutations";
+import { useUser } from "../../../contexts/UserContext";
 
 interface CommentFormProps {
 	postId: number;
@@ -9,12 +10,13 @@ interface CommentFormProps {
 
 export function CommentForm({ postId, onCommentAdded }: CommentFormProps) {
 	const [content, setContent] = useState("");
+	const { currentUser } = useUser();
 	const [createComment, { loading }] = useMutation(CREATE_COMMENT);
 
 	const handleSubmit = async (e: FormEvent) => {
 		e.preventDefault();
 
-		if (!content.trim()) {
+		if (!content.trim() || !currentUser) {
 			return;
 		}
 
@@ -24,17 +26,25 @@ export function CommentForm({ postId, onCommentAdded }: CommentFormProps) {
 					input: {
 						content: content.trim(),
 						postId: postId,
-						authorId: 2,
+						authorId: currentUser.id,
 					},
 				},
 			});
 
 			setContent("");
-			onCommentAdded(); // Refresh the page data
+			onCommentAdded();
 		} catch (err: any) {
 			console.error("❌ Error:", err);
 		}
 	};
+
+	if (!currentUser) {
+		return (
+			<div className="bg-slate-700/20 rounded-xl p-6 mb-8 border border-slate-700/50 text-center">
+				<p className="text-slate-400">Please select a user above to comment</p>
+			</div>
+		);
+	}
 
 	return (
 		<form
@@ -52,7 +62,7 @@ export function CommentForm({ postId, onCommentAdded }: CommentFormProps) {
 					className="block text-slate-300 mb-2 font-medium"
 				>
 					Comment as{" "}
-					<span className="text-sky-400 font-semibold">Bob Smith</span>
+					<span className="text-sky-400 font-semibold">{currentUser.name}</span>
 				</label>
 				<textarea
 					id="content"

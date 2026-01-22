@@ -10,6 +10,7 @@ import { ErrorMessage } from "../../../components/ErrorMessage";
 import { ConfirmDialog } from "../../../components/ConfirmDialog";
 import { DELETE_POST } from "../graphql/mutations";
 import { GET_POSTS } from "../graphql/queries";
+import { UserSelector } from "../../../components/UserSelector";
 
 export function PostDetail() {
 	const { slug } = useParams<{ slug: string }>();
@@ -111,7 +112,9 @@ export function PostDetail() {
 						</div>
 					</div>
 				</header>
-
+				<div className="max-w-4xl mx-auto px-6 py-6">
+					<UserSelector />
+				</div>
 				<main className="max-w-4xl mx-auto px-6 py-12">
 					<article className="bg-slate-800/30 backdrop-blur-xl rounded-2xl border border-slate-700 p-8 mb-12 animate-fadeIn shadow-2xl">
 						<div className="prose prose-invert prose-lg max-w-none">

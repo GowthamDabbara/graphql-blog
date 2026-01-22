@@ -3,6 +3,7 @@ import { PostCard } from "./PostCard";
 import { ErrorMessage } from "../../../components/ErrorMessage";
 import { PostCardSkeleton } from "../../../components/PostCardSkeleton";
 import { useNavigate } from "react-router-dom";
+import { UserSelector } from "../../../components/UserSelector";
 
 export function BlogList() {
 	const navigate = useNavigate();
@@ -35,7 +36,9 @@ export function BlogList() {
 					</div>
 				</div>
 			</header>
-
+			<div className="max-w-4xl mx-auto px-6 py-6">
+				<UserSelector />
+			</div>
 			{/* Main Content */}
 			<main className="max-w-4xl mx-auto px-6 py-12">
 				<div className="grid gap-8">
